@@ -24,3 +24,10 @@ class Post(BaseModel):
 
     def published_recently(self):
         return self.created_at >= timezone.now() - datetime.timedelta(days=1)
+
+
+class Category(BaseModel):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
