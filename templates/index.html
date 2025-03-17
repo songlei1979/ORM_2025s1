@@ -1,0 +1,21 @@
+<html>
+<head>
+    <title>Home</title>
+</head>
+<body>
+<h1>This is my home page</h1>
+<p>This is my home page contents</p>
+<form method="post"
+      action="{% url 'index' %}">
+    {% csrf_token %}
+    Title: <input name="title">
+    Content: <textarea name="content"></textarea>
+    <input type="submit" value="Create">
+</form>
+<h2>Posts</h2>
+{% for post in posts %}
+    <h3>{{ post.title }}</h3>
+    <p>{{ post.content }}</p>
+{% endfor %}
+</body>
+</html>
