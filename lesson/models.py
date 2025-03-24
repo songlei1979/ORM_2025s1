@@ -28,7 +28,7 @@ class Post(BaseModel):
     snippet = models.CharField(max_length=255, default="")
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
-
+    likes = models.ManyToManyField(User, related_name="blog_posts")
 
     def __str__(self):
         return self.title
@@ -37,3 +37,19 @@ class Post(BaseModel):
         return self.created_at >= timezone.now() - datetime.timedelta(days=1)
 
 
+class Profile(BaseModel):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    website = models.URLField(blank=True)
+    bio = models.TextField(blank=True)
+    phone = models.CharField(max_length=20, blank=True)
+    profile_image = models.ImageField(null=True, blank=True, upload_to="profile_images/")
+    github = models.URLField(blank=True)
+
+    def __str__(self):
+        return self.user.username
+
+
+class Comment(BaseModel):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    body = models.TextField()
