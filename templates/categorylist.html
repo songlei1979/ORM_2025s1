@@ -1,0 +1,18 @@
+<ul>
+{% for category in categories %}
+    <li>{{ category.name }}</li>
+    <ul>
+        {% for post in category.post_set.all %}
+            <li>{{ post.title }}</li>
+            <ul>
+            {% for comment in post.comment_set.all %}
+                <li>{{ comment.body }}</li>
+                
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </ul>
+{% endfor %}
+</ul>
+
+<a href="{% url 'index' %}">Home</a>

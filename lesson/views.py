@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from lesson.models import Post
+from lesson.models import Post, Category
 
 
 # Create your views here.
@@ -13,3 +13,10 @@ def index(request):
     return render(request,
                   'index.html',
                   {'posts': posts})
+
+
+def categorylist(request):
+    categories = Category.objects.all()
+    return render(request,
+                  'categorylist.html',
+                  {'categories': categories})
