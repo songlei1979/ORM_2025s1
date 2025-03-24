@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
 
 from lesson.models import Post, Category
 
@@ -21,3 +22,22 @@ def categorylist(request):
     return render(request,
                   'categorylist.html',
                   {'categories': categories})
+
+def post_detail(request, post_id):
+    post = Post.objects.get(id=post_id)
+    if request.method == 'POST':
+        title = request.POST['title']
+        content = request.POST['content']
+        post.title = title
+        post.content = content
+        post.save()
+    return render(request, 'post_detail.html',
+                  {'post': post})
+
+def post_delete(request, post_id):
+    post = Post.objects.get(id=post_id)
+    post.delete()
+    posts = Post.objects.all()
+    return render(request,
+                  'index.html',
+                  {'posts': posts})

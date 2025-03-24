@@ -1,22 +1,31 @@
 {% extends 'base.html' %}
 {% block title %}
-Home
+    Home
 {% endblock %}
 {% block content %}
-<h1>This is my home page</h1>
-<p>This is my home page contents</p>
-<form method="post"
-      action="{% url 'index' %}">
-    {% csrf_token %}
-    Title: <input name="title">
-    Content: <textarea name="content"></textarea>
-    Auther: <input name="auther_id" type="number">
-    <input type="submit" value="Create">
-</form>
-<h2>Posts</h2>
-{% for post in posts %}
-    <h3>{{ post.title }}</h3>
-    <p>{{ post.content }}</p>
-{% endfor %}
-<a href="{% url 'category_list' %}">Category</a>
-{% endblock%}
+    <h1>This is my home page</h1>
+    <p>This is my home page contents</p>
+    <form method="post"
+          action="{% url 'index' %}">
+        {% csrf_token %}
+        Title: <input name="title">
+        Content: <textarea name="content"></textarea>
+        Auther: <input name="auther_id" type="number">
+        <input type="submit" value="Create" class="btn btn-primary">
+    </form>
+    <h2>Posts</h2>
+    <li>
+        {% for post in posts %}
+            <li>
+                <a href="{% url 'post_detail' post.id %}">
+                    {{ post.title }}
+                </a>
+                <a href="{% url 'post_delete' post.id %}" 
+                   class="btn btn-danger">
+                    Delete
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'category_list' %}">Category</a>
+{% endblock %}

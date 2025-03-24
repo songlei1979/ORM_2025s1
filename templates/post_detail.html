@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}
+    {{ post.title }}
+{% endblock %}
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+    <p>last update: {{ post.updated_at }}</p>
+    <form method="post" 
+          action="{% url 'post_detail' post.id %}">
+        {% csrf_token %}
+    <p>Title: <input name="title" type="text" value="{{ post.title }}"></p>
+    <p>Content: <textarea name="content" cols="30" rows="10">{{ post.content }}</textarea></p>
+    <input type="submit" value="Update" class="btn btn-primary">
+    
+    </form>
+{% endblock %}
