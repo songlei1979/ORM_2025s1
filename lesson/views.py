@@ -8,7 +8,8 @@ def index(request):
     if request.method == 'POST':
         title = request.POST['title']
         content = request.POST['content']
-        Post.objects.create(title=title, content=content)
+        auther_id = request.POST['auther_id']
+        Post.objects.create(title=title, content=content, author_id=auther_id)
     posts = Post.objects.all()
     return render(request,
                   'index.html',
