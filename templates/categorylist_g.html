@@ -3,6 +3,9 @@
     Category
 {% endblock %}
 {% block content %}
+    <a href="{% url 'category_create' %}" class="btn btn-primary"> 
+        Create Category 
+    </a>
     <ul>
         {% for category in object_list %}
             <li>
