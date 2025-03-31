@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 from lesson.models import Post, Category
 
@@ -46,4 +46,9 @@ def post_delete(request, post_id):
 
 class CategoryList(ListView):
     template_name = 'categorylist_g.html'
+    model = Category
+
+
+class CategoryDetail(DetailView):
+    template_name = 'category_detail.html'
     model = Category
