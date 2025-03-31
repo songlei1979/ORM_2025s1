@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
 from lesson.models import Post, Category
 
@@ -52,6 +52,12 @@ class CategoryCreate(CreateView):
     model = Category
     fields = ['name']
     template_name = 'category_create.html'
+    success_url = reverse_lazy('category_list_g')
+
+class CategoryUpdate(UpdateView):
+    model = Category
+    fields = ['name']
+    template_name = 'category_update.html'
     success_url = reverse_lazy('category_list_g')
 
 

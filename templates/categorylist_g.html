@@ -12,6 +12,13 @@
                 <a href="{% url 'category_detail' category.id %}">
                     {{ category.name }}
                 </a>
+            
+                <a 
+                        href="{% url 'category_update' category.id%}"
+                        class="btn btn-secondary"
+                >
+                    Update
+                </a>
             </li>
         {% endfor %}
     </ul>
