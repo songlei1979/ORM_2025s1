@@ -5,14 +5,16 @@
 {% block content %}
     <h1>This is my home page</h1>
     <p>This is my home page contents</p>
-    <form method="post"
-          action="{% url 'index' %}">
-        {% csrf_token %}
-        Title: <input name="title">
-        Content: <textarea name="content"></textarea>
-        Auther: <input name="auther_id" type="number">
-        <input type="submit" value="Create" class="btn btn-primary">
-    </form>
+    {% if user.is_authenticated %}
+        <form method="post"
+              action="{% url 'index' %}">
+            {% csrf_token %}
+            Title: <input name="title">
+            Content: <textarea name="content"></textarea>
+            <input name="auther_id" type="hidden" value="{{ user.id }}">
+            <input type="submit" value="Create" class="btn btn-primary">
+        </form>
+    {% endif %}
     <h2>Posts</h2>
     <li>
         {% for post in posts %}
@@ -20,10 +22,14 @@
                 <a href="{% url 'post_detail' post.id %}">
                     {{ post.title }}
                 </a>
-                <a href="{% url 'post_delete' post.id %}" 
-                   class="btn btn-danger">
-                    Delete
-                </a>
+                {% if user.is_authenticated %}
+                    {% if user.id == post.author.id %}
+                        <a href="{% url 'post_delete' post.id %}"
+                           class="btn btn-danger">
+                            Delete
+                        </a>
+                    {% endif %}
+                {% endif %}
             </li>
         {% endfor %}
     </ul>
