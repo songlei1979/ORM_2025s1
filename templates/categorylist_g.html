@@ -19,6 +19,13 @@
                 >
                     Update
                 </a>
+            
+                <a 
+                        href="{% url 'category_delete' category.id%}"
+                        class="btn btn-danger"
+                >
+                    Delete
+                </a>
             </li>
         {% endfor %}
     </ul>

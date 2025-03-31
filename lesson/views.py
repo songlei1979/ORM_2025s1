@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from lesson.models import Post, Category
 
@@ -58,6 +58,11 @@ class CategoryUpdate(UpdateView):
     model = Category
     fields = ['name']
     template_name = 'category_update.html'
+    success_url = reverse_lazy('category_list_g')
+
+class CategoryDelete(DeleteView):
+    model = Category
+    template_name = 'category_delete.html'
     success_url = reverse_lazy('category_list_g')
 
 
