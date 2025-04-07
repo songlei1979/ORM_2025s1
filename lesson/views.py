@@ -1,10 +1,11 @@
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 
 from lesson.forms import CreateCategoryForm
-from lesson.models import Post, Category
+from lesson.models import Post, Category, Profile
 
 
 # Create your views here.
@@ -105,3 +106,25 @@ def register(request):
             user.save()
             return redirect('login')
     return render(request, 'register.html')
+
+
+class ProfileDetail(TemplateView):
+    template_name = 'profile_detail.html'
+
+class ProfileCreate(CreateView):
+    model = Profile
+    fields = ['website', 'bio', 'phone', 'profile_image', 'github']
+    template_name = 'profile_create.html'
+    success_url = '/profile/'
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+class ProfileUpdate(UpdateView):
+    model = Profile
+    fields = ['website', 'bio', 'phone', 'profile_image', 'github']
+    template_name = 'profile_update.html'
+    success_url = reverse_lazy('profile_detail')
