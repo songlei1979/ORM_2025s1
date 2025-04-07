@@ -18,8 +18,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from lesson.views import register
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', include('lesson.urls')),
     path("accounts/", include("django.contrib.auth.urls")),
+    path("register/", register, name="register"),
 ]
