@@ -1,6 +1,6 @@
 from django.urls import path
 from lesson.views import index, categorylist, post_detail, post_delete, CategoryList, CategoryDetail, CategoryCreate, \
-    CategoryUpdate, CategoryDelete
+    CategoryUpdate, CategoryDelete, like_post
 
 urlpatterns = [
     path('', index, name='index'),
@@ -12,4 +12,5 @@ urlpatterns = [
     path('category_create',CategoryCreate.as_view(), name='category_create'),
     path('category_update/<int:pk>',CategoryUpdate.as_view(), name='category_update'),
     path('category_delete/<int:pk>',CategoryDelete.as_view(), name='category_delete'),
+    path('like_post/<int:post_id>', like_post, name='like_post'),
 ]

@@ -71,3 +71,13 @@ class CategoryDelete(DeleteView):
 class CategoryDetail(DetailView):
     template_name = 'category_detail.html'
     model = Category
+
+
+def like_post(request, post_id):
+    post = Post.objects.get(id=post_id)
+    if request.user in post.likes.all():
+        post.likes.remove(request.user)
+    else:
+        post.likes.add(request.user)
+    return render(request, 'post_detail.html',
+                  {'post': post})
