@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}
+Send email out
+{% endblock %}
+{% block content %}
+<form action="{% url 'send_email' %}" method="post">
+{% csrf_token %}
+<p>To: <input name="receiver" type="email"></p>
+<p>Subject: <input name="subject" type="text"></p>
+    <p>Body: 
+        <textarea name="email_body" cols="40" rows="10">
+    </textarea></p>
+<button>Send</button>
+</form>
+{% endblock %}

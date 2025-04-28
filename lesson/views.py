@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 
+from ORM.settings import POSTMARK_API_KEY
 from lesson.forms import CreateCategoryForm
 from lesson.models import Post, Category, Profile
 
@@ -128,3 +129,23 @@ class ProfileUpdate(UpdateView):
     fields = ['website', 'bio', 'phone', 'profile_image', 'github']
     template_name = 'profile_update.html'
     success_url = reverse_lazy('profile_detail')
+
+
+from postmarker.core import PostmarkClient
+def send_email(request):
+    if request.method == "POST":
+        receiver = request.POST['receiver']
+        subject = request.POST['subject']
+        email_body = request.POST['email_body']
+        print(receiver)
+        print(subject)
+        print(email_body)
+        postmark = PostmarkClient(server_token=POSTMARK_API_KEY)
+        postmark.emails.send(
+            From='lsong@unitec.ac.nz',
+            To=receiver,
+            Subject=subject,
+            HtmlBody=email_body
+        )
+
+    return render(request, 'send_email.html')
