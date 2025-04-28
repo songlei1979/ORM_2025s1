@@ -24,7 +24,7 @@ SECRET_KEY = "django-insecure-z@b3*lkfxl_l)y3%+cg6_ez^#qu73em!uodod6v669!$uy$4$5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -67,15 +67,26 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "ORM.wsgi.application"
+WSGI_APPLICATION = "ORM.wsgi.app"
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+
+DATABASES ={
+    "default":{
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "neondb",  # Replace with your actual database name
+        "USER": "neondb_owner",  # Replace with your actual database user
+        "PASSWORD": "npg_cPY7whkS0fFN",  # Replace with your actual database password
+        "HOST": "ep-ancient-sky-a7m8oh66-pooler.ap-southeast-2.aws.neon.tech",
+        "PORT": "5432",
     }
 }
 
